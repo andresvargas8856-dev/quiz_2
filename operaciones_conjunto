@@ -1,0 +1,43 @@
+from conjunto import Conjunto
+
+class OperacionesConjunto:
+
+    @staticmethod
+    def union(a, b):
+        resultado = Conjunto()
+
+        actual = a.get_cabeza()
+        while actual:
+            resultado.agregar(actual.dato)
+            actual = actual.siguiente
+
+        actual = b.get_cabeza()
+        while actual:
+            resultado.agregar(actual.dato)
+            actual = actual.siguiente
+
+        return resultado
+
+    @staticmethod
+    def interseccion(a, b):
+        resultado = Conjunto()
+
+        actual = a.get_cabeza()
+        while actual:
+            if b.contiene(actual.dato):
+                resultado.agregar(actual.dato)
+            actual = actual.siguiente
+
+        return resultado
+
+    @staticmethod
+    def diferencia(a, b):
+        resultado = Conjunto()
+
+        actual = a.get_cabeza()
+        while actual:
+            if not b.contiene(actual.dato):
+                resultado.agregar(actual.dato)
+            actual = actual.siguiente
+
+        return resultado
