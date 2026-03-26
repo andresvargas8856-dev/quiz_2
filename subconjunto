@@ -1,0 +1,21 @@
+class OperacionesConjunto:
+
+    # =========================
+    # VERIFICAR SI A ES SUBCONJUNTO DE B
+    # =========================
+    @staticmethod
+    def es_subconjunto(a, b):
+        """
+        A es subconjunto de B si TODOS los elementos de A
+        están dentro de B
+        """
+
+        actual = a.get_cabeza()
+
+        while actual:
+            # si algún elemento de A NO está en B
+            if not b.contiene(actual.dato):
+                return False  # ya no es subconjunto
+            actual = actual.siguiente
+
+        return True  # todos estaban → sí es subconjunto
