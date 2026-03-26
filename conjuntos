@@ -1,0 +1,245 @@
+class Nodo:
+    def __init__(self, dato):
+        self.dato = dato
+        self.siguiente = None
+        
+        
+class Conjunto:
+    def __init__(self, elementos=None):
+        self.cabeza = None
+        self.tamaño = 0
+        
+        if elementos:
+            for o in elementos:
+                self.agregar(o)
+                
+    def esta_vacia(self):
+        return self.cabeza is None
+    
+    
+    def cardinalidad(self):
+        return self.tamaño
+    
+    
+    #metodo pertenece
+    
+    def pertenece(self, x):
+        actual = self.cabeza
+        while actual:
+            if actual.dato == x:
+                return True
+            actual = actual.siguiente
+        return False
+    
+    #agregar un elemento al conjunto
+    def agrgear(self, x):
+        if self.pertence(x):
+            return False
+        
+        nuevo = Nodo(x)
+        nuevo.siguiente =self.cabeza
+        self.cabeza = nuevo
+        self.tamaño += 1
+        return True
+    
+    def eliminar(self, x):
+        if self.esta_vacia():
+            return False
+        
+        if self.cabeza.dato == x:
+            self.cabeza = self.cabeza.siguiente
+            self.tamaño -= 1
+            return True
+        
+        actual = self.cabeza
+        while actual.siguiente:
+            if actual.siguiente.dato == x:
+                actual.siguiente = actual.siguiente.siguiente
+                self.tamaño -= 1
+                return True
+            actual = actual.siguiente
+            
+            
+            
+    #vaciar el conjunto
+    
+    def vaciar(self):
+        self.cabeza = None
+        self.tamaño = 0
+        
+        
+    def union(self, otro):
+        
+        resultado = Conjunto()
+        
+        actual = self.cabeza
+        while actual:
+            resultado.agregar(actual.dato)
+            actual = actual.siguiente
+            
+        actual = otro.cabeza
+        while actual:
+            resultado.agregar(actual.dato)
+            actual = actual.siguiente
+            
+        return resultado
+    
+    # interseccion? como hacerla el recorrido en las dos 
+    def interseccion(self, otro):
+        
+        resultado = Conjunto()
+        
+        actual = self.cabeza
+        while actual:
+            if otro.pertenece(actual.dato):
+                resultado.agregar(actual.dato)
+            actual = actual.siguiente
+            
+        return resultado
+    
+        
+        #diferencia elementos de a que no esten en b
+        
+        def diferencia(self, otro):
+            resultado = Conjunto()
+            
+            actual = self.cabeza
+            while actual:
+                if not otro.pertenece(actual.dato):
+                    resultado.agregar(actual.dato)
+                actual = actual.siguiente
+                
+            return resultado    
+        
+        
+        def diferencia_simetrica(self, otro):
+            return self.calcular_diferencia_simetrica(otro) + otro.calcular_diferencia_simetrica(self)      
+
+        def a_lista(self):
+            resultado = []
+            
+            actual = self.cabeza
+            while actual:
+                resultado.append(actual.dato)
+                actual = actual.siguiente
+            return resultado
+        
+        def __str__(self):
+            return "{" + ", ".join(str(x) for x in self.a_lista()) + "}"
+        
+A = Conjunto(["A", "B", "C"])
+B = Conjunto(["B", "C", "E"])
+C = A.union(B)
+print(C)
+
+
+
+
+
+
+
+peliculas_con_generos_en_comun = []
+peliculas = list(catalogo.keys())
+for i in range(len(peliculas)):
+    for j in range (i + 1, len(peliculas)):
+        p1, p2 = peliculas[i], peliculas[j]
+        comunes = catalogo[p1] & catalogo[p2]
+        
+        if len(comunes) >=2:
+            
+            
+            
+            peliculas_con_generos_en_comun((p1, p2, s))
+            
+print(peliculas_con_generos_en_comun)
+
+
+
+
+catalogo = {
+    "Inception": {"ciencia ficción", "acción", "thriller", "drama"},
+    "The Matrix": {"ciencia ficción", "acción", "thriller"},
+    "Titanic": {"drama", "romance", "historica"},
+    "The Notebook": {"drama", "romance"},
+    "Avengers": {"ciencia ficción", "acción", "aventura", "superhéroes"},
+    "Jhon Wick": {"acción", "thriller", "crimen"},
+    "Interstellar": {"ciencia ficción", "drama", "aventura"},
+    "the godfather": {"drama", "crimen", "thriller"},
+    "Toy Story": {"animación", "aventura", "comedia",},
+    "Shrek": {"animación", "aventura", "comedia",},
+}
+
+
+favoritos = {"accion", "crimen", "aventura"}
+recomendaciones[]
+
+for pelicula, generos in catalogo.items():
+    generos_comunes = favoritos.intersection(generos)
+    if generos_comunes:
+        porcentaje_similitud=(len(generos_comunes)/len(mis_favoritas))*100
+        recomendaciones.append(pelicula, porcentaje_similitud)
+        
+def obtener_porcentaje(elemento):
+    return elemento[1]
+
+recomendaciones.sort(key=obtener_porcentaje, reverse=True)
+print(recomendaciones)
+
+
+
+
+#como puedo mostrar todos los generos que hay en el catalogo
+#union = juntar TODO sin repetir
+# & = lo que tienen en común
+# | = otra forma de hacer unión
+
+
+        
+generos_unicos = set()
+
+
+for generos in catalogo.values():
+    generos_unicos = generos_unicos.union(generos)
+    
+generos_ordenados = sorted(generos_unicos)
+
+print(generos_ordenados)
+
+
+
+            
+            
+            
+            
+            # cada genero con sus peliculas al lado
+            #que me muestre peliculas por genero 
+            
+        
+        
+        
+        
+#metodo que reciba el nombre de dos peliculas 
+#Devuelva el indice de similitud Jaccard
+
+def calcular_indice(p1, p2):
+    
+    g1
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+#leer dos textos 
+#calcular su indice de similitud ignorando las STOPWORDS
+#si elindice es amyor a 0.6 , se copiaron
+
+
+STOPWORDS ={"el","la", "los", "las","un", "una", "unos", "unas",
+            "de", "del", "al", "a", "en", "con", "por","para",
+            "y", "0", "que ", "es", "son", "se", "su", "sus",
+            "como", "pero", "mas", "este", "esta", "estos", "estos "}
