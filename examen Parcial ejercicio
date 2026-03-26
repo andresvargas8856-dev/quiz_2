@@ -1,0 +1,273 @@
+"""
+═══════════════════════════════════════════════════════════════════════════════
+                        PARCIAL 2 - ESTRUCTURAS DE DATOS
+                                  EXAMEN E
+                Sistema de Recomendación de Streaming
+═══════════════════════════════════════════════════════════════════════════════
+
+CONTEXTO:
+---------
+Una plataforma de streaming gestiona usuarios y las películas que han visto.
+Cada usuario tiene un CONJUNTO de películas.
+
+Se requiere implementar diferentes análisis usando operaciones de conjuntos.
+
+INSTRUCCIONES:
+--------------
+1. Usar la clase Conjunto (lista ligada)
+2. NO usar listas de Python []
+3. Aplicar correctamente las operaciones de conjuntos
+4. Usar recorridos cuando sea necesario (.items(), .values())
+5. Tiempo: 90 minutos
+
+═══════════════════════════════════════════════════════════════════════════════
+DATOS INICIALES
+═══════════════════════════════════════════════════════════════════════════════
+"""
+
+usuarios = {
+    "Ana": Conjunto(["Matrix", "Avatar", "Titanic"]),
+    "Luis": Conjunto(["Matrix", "Inception", "Avatar"]),
+    "Carlos": Conjunto(["Titanic", "Avatar"]),
+    "Sofia": Conjunto(["Inception", "Interstellar"])
+}
+
+"""
+═══════════════════════════════════════════════════════════════════════════════
+PUNTO 1 (1.0): INTERSECCIÓN
+═══════════════════════════════════════════════════════════════════════════════
+Encontrar las películas que Ana y Luis tienen en común.
+(NO recorrer el diccionario)
+"""
+
+# Escribe tu código aquí
+
+
+"""
+═══════════════════════════════════════════════════════════════════════════════
+PUNTO 2 (1.0): DIFERENCIA
+═══════════════════════════════════════════════════════════════════════════════
+Encontrar las películas que tiene Ana pero NO Luis.
+"""
+
+# Escribe tu código aquí
+
+
+"""
+═══════════════════════════════════════════════════════════════════════════════
+PUNTO 3 (1.0): UNIÓN ACUMULADA
+═══════════════════════════════════════════════════════════════════════════════
+Encontrar TODAS las películas únicas en la plataforma.
+(Recorrer el diccionario correctamente)
+"""
+
+# Escribe tu código aquí
+
+
+"""
+═══════════════════════════════════════════════════════════════════════════════
+PUNTO 4 (1.0): SUBCONJUNTO
+═══════════════════════════════════════════════════════════════════════════════
+Verificar si Carlos ha visto SOLO películas que Ana también ha visto.
+"""
+
+# Escribe tu código aquí
+
+
+"""
+═══════════════════════════════════════════════════════════════════════════════
+PUNTO 5 (1.0): DIFERENCIA SIMÉTRICA
+═══════════════════════════════════════════════════════════════════════════════
+Encontrar las películas que son EXCLUSIVAS entre Ana y Luis
+(lo que uno tiene y el otro no).
+"""
+
+# Escribe tu código aquí
+
+
+"""
+═══════════════════════════════════════════════════════════════════════════════
+PUNTO 6 (1.0): CONTEO (IMPORTANTE)
+═══════════════════════════════════════════════════════════════════════════════
+Encontrar la película MÁS VISTA (la que aparece en más usuarios).
+"""
+
+# Escribe tu código aquí
+
+
+"""
+═══════════════════════════════════════════════════════════════════════════════
+PUNTO 7 (1.0): PARES CON INTERSECCIÓN
+═══════════════════════════════════════════════════════════════════════════════
+Mostrar todos los pares de usuarios que tienen al menos 1 película en común.
+"""
+
+# Escribe tu código aquí
+
+
+"""
+═══════════════════════════════════════════════════════════════════════════════
+PUNTO 8 (1.0): USUARIO MÁS COMPLETO
+═══════════════════════════════════════════════════════════════════════════════
+Encontrar el usuario que ha visto MÁS películas.
+"""
+
+# Escribe tu código aquí
+
+
+
+
+# ============================================================
+# PUNTO 1: INTERSECCIÓN
+# ============================================================
+# NO se recorre porque ya sabemos exactamente qué usuarios usar
+
+# Obtenemos las películas en común entre Ana y Luis
+comunes = usuarios["Ana"].interseccion(usuarios["Luis"])
+
+print("Películas en común Ana y Luis:")
+comunes.mostrar()
+
+# 🔥 IDEA:
+# interseccion → elementos que están en ambos conjuntos
+
+
+# ============================================================
+# PUNTO 2: DIFERENCIA
+# ============================================================
+# Lo que tiene Ana que NO tiene Luis
+
+solo_ana = usuarios["Ana"].diferencia(usuarios["Luis"])
+
+print("\nPelículas solo de Ana:")
+solo_ana.mostrar()
+
+# 🔥 IMPORTANTE:
+# A.diferencia(B) → lo que tiene A que NO tiene B
+# El orden importa muchísimo
+
+
+# ============================================================
+# PUNTO 3: UNIÓN ACUMULADA
+# ============================================================
+# Queremos TODAS las películas → recorrer con .values()
+
+todas = Conjunto()  # conjunto vacío
+
+for peliculas in usuarios.values():
+    # Vamos acumulando todas las películas
+    todas = todas.union(peliculas)
+
+print("\nTodas las películas en la plataforma:")
+todas.mostrar()
+
+# 🔥 IDEA:
+# union acumulada = patrón típico de examen
+
+
+# ============================================================
+# PUNTO 4: SUBCONJUNTO
+# ============================================================
+# ¿Todo lo de Carlos está dentro de Ana?
+
+es_sub = usuarios["Carlos"].es_subconjunto(usuarios["Ana"])
+
+print("\n¿Carlos es subconjunto de Ana?")
+print(es_sub)
+
+# 🔥 CLAVE:
+# pequeño.es_subconjunto(grande)
+
+
+# ============================================================
+# PUNTO 5: DIFERENCIA SIMÉTRICA
+# ============================================================
+# Lo exclusivo entre ambos (lo que uno tiene y el otro no)
+
+exclusivas = usuarios["Ana"].diferencia_simetrica(usuarios["Luis"])
+
+print("\nPelículas exclusivas entre Ana y Luis:")
+exclusivas.mostrar()
+
+# 🔥 IDEA:
+# diferencia_simetrica = (A - B) union (B - A)
+
+
+# ============================================================
+# PUNTO 6: CONTEO (PELÍCULA MÁS VISTA)
+# ============================================================
+
+conteo = {}  # diccionario para contar
+
+# Recorremos todos los usuarios
+for peliculas in usuarios.values():
+    
+    # Recorremos cada conjunto (usa __iter__ de tu clase)
+    for peli in peliculas:
+        
+        # Contamos cuántas veces aparece cada película
+        conteo[peli] = conteo.get(peli, 0) + 1
+
+
+# Buscar la película con mayor conteo
+max_peli = None
+max_count = -1
+
+for peli, cantidad in conteo.items():
+    if cantidad > max_count:
+        max_count = cantidad
+        max_peli = peli
+
+print("\nPelícula más vista:")
+print(max_peli, "→", max_count)
+
+# 🔥 PATRÓN CLAVE:
+# conteo[elemento] = conteo.get(elemento, 0) + 1
+
+
+# ============================================================
+# PUNTO 7: PARES CON INTERSECCIÓN
+# ============================================================
+
+print("\nPares con películas en común:")
+
+nombres = list(usuarios.keys())  # solo para evitar repetir pares
+
+for i in range(len(nombres)):
+    for j in range(i + 1, len(nombres)):
+        
+        u1 = nombres[i]
+        u2 = nombres[j]
+
+        comunes = usuarios[u1].interseccion(usuarios[u2])
+
+        # Si NO está vacío → tienen algo en común
+        if not comunes.esta_vacio():
+            print(f"{u1} - {u2}: ", end="")
+            comunes.mostrar()
+
+# 🔥 CLAVE:
+# j empieza en i+1 para no repetir pares
+
+
+# ============================================================
+# PUNTO 8: USUARIO MÁS COMPLETO
+# ============================================================
+
+mejor_usuario = None
+max_peliculas = -1
+
+# Recorremos con .items() porque necesitamos nombre + conjunto
+for usuario, peliculas in usuarios.items():
+    
+    cantidad = peliculas.cardinalidad()
+
+    if cantidad > max_peliculas:
+        max_peliculas = cantidad
+        mejor_usuario = usuario
+
+print("\nUsuario con más películas:")
+print(mejor_usuario, "→", max_peliculas)
+
+# 🔥 PATRÓN:
+# buscar máximo con variable auxiliar
