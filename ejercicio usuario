@@ -1,0 +1,78 @@
+"""
+============================================================
+EJERCICIO: USUARIO MÁS COMPLETO
+============================================================
+
+Objetivo:
+Encontrar el usuario que ha visto la MAYOR cantidad de películas.
+
+Conceptos usados:
+- Conjuntos (lista ligada)
+- Recorrido con .items()
+- Método cardinalidad()
+- Búsqueda de máximo
+
+Explicación:
+Se recorre el diccionario de usuarios y se compara la cantidad
+de películas de cada uno para encontrar el mayor.
+"""
+
+# =========================
+# FUNCIÓN PRINCIPAL
+# =========================
+def usuario_mas_completo(usuarios):
+    """
+    Recibe:
+        usuarios → diccionario {nombre: Conjunto}
+
+    Retorna:
+        (usuario, cantidad) con más películas
+    """
+
+    # Variable para guardar el mejor usuario encontrado
+    mejor_usuario = None
+
+    # Variable para guardar la mayor cantidad de películas
+    max_peliculas = -1  # empezamos en -1 para asegurar comparación
+
+    # =========================
+    # RECORRIDO DEL DICCIONARIO
+    # =========================
+    # Usamos .items() porque necesitamos:
+    # - nombre del usuario
+    # - su conjunto de películas
+    for usuario, peliculas in usuarios.items():
+
+        # Obtenemos la cantidad de películas usando cardinalidad()
+        cantidad = peliculas.cardinalidad()
+
+        # =========================
+        # COMPARACIÓN (buscar máximo)
+        # =========================
+        if cantidad > max_peliculas:
+            max_peliculas = cantidad
+            mejor_usuario = usuario
+
+    # Retornamos el resultado
+    return mejor_usuario, max_peliculas
+
+
+# =========================
+# CÓDIGO DE PRUEBA
+# =========================
+if __name__ == "__main__":
+
+    # Diccionario de usuarios con conjuntos
+    usuarios = {
+        "Ana": Conjunto(["Matrix", "Avatar", "Titanic"]),
+        "Luis": Conjunto(["Matrix", "Inception", "Avatar"]),
+        "Carlos": Conjunto(["Titanic", "Avatar"]),
+        "Sofia": Conjunto(["Inception", "Interstellar"])
+    }
+
+    # Llamamos la función
+    usuario, cantidad = usuario_mas_completo(usuarios)
+
+    # Mostramos resultado
+    print("Usuario más completo:")
+    print(usuario, "→", cantidad)
