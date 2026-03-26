@@ -1,0 +1,15 @@
+class OperacionesConjunto:
+
+    # =========================
+    # VERIFICAR SI DOS CONJUNTOS SON IGUALES
+    # =========================
+    @staticmethod
+    def son_iguales(a, b):
+        """
+        Dos conjuntos son iguales si:
+        - A es subconjunto de B
+        - B es subconjunto de A
+        """
+
+        return (OperacionesConjunto.es_subconjunto(a, b) and
+                OperacionesConjunto.es_subconjunto(b, a))
