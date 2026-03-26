@@ -1,0 +1,23 @@
+# Quiz Algoritmos 4 - Conjuntos con Listas Ligadas
+
+## Descripción
+Implementación de conjuntos utilizando listas ligadas en Java.
+
+## Funcionalidades
+- Agregar elementos (sin duplicados)
+- Unión
+- Intersección
+- Diferencia
+
+## Estructura
+- Nodo: representa cada elemento
+- ListaLigada: estructura base
+- Conjunto: controla que no haya repetidos
+- OperacionesConjunto: operaciones matemáticas
+
+## Ejecución
+1. Compilar:
+   javac src/*.java
+
+2. Ejecutar:
+   java src.Main
