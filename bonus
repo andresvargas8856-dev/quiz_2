@@ -1,0 +1,14 @@
+from conjunto import Conjunto
+from operaciones_conjunto import OperacionesConjunto
+
+spotify = Conjunto()
+netflix = Conjunto()
+
+spotify.agregar(1)
+spotify.agregar(2)
+
+netflix.agregar(2)
+netflix.agregar(3)
+
+print("Usuarios en ambas plataformas:")
+OperacionesConjunto.interseccion(spotify, netflix).mostrar()
