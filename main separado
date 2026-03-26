@@ -1,0 +1,43 @@
+from conjunto import Conjunto
+from operaciones_conjunto import OperacionesConjunto
+
+# =========================
+# CASO TIPO QUIZ
+# =========================
+
+A = Conjunto()
+B = Conjunto()
+
+# llenar conjuntos
+A.agregar(1)
+A.agregar(2)
+A.agregar(3)
+
+B.agregar(2)
+B.agregar(3)
+B.agregar(4)
+
+print("A:")
+A.mostrar()
+
+print("B:")
+B.mostrar()
+
+# =========================
+# 1. ELIMINAR
+# =========================
+print("\nEliminar 2 de A:")
+A.eliminar(2)
+A.mostrar()
+
+# =========================
+# 2. SUBCONJUNTO
+# =========================
+print("\n¿A es subconjunto de B?")
+print(OperacionesConjunto.es_subconjunto(A, B))
+
+# =========================
+# 3. IGUALDAD
+# =========================
+print("\n¿A y B son iguales?")
+print(OperacionesConjunto.son_iguales(A, B))
