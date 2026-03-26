@@ -1,0 +1,35 @@
+        
+from ejerciciopilas import Pila
+
+def validar_balanceo(expresion):
+
+    pares = {
+        ')': '(',
+        ']': '[',
+        '}': '{'
+    }
+
+    aperturas = set(pares.values())
+    cierres = set(pares.keys())
+
+    pila = Pila()
+
+    for token in expresion:
+
+        if token in aperturas:
+            pila.push(token)
+
+        elif token in cierres:
+
+            if pila.esta_vacia():
+                return False
+
+            tope = pila.pop()
+
+            if tope != pares[token]:
+                return False
+
+    return pila.esta_vacia()
+
+
+print(validar_balanceo("[()]"))
