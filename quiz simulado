@@ -1,0 +1,187 @@
+"""
+═══════════════════════════════════════════════════════════════════════════════
+                        PARCIAL 2 - ESTRUCTURAS DE DATOS
+                                  EXAMEN C
+                Sistema de Gestión de Usuarios (Conjuntos)
+═══════════════════════════════════════════════════════════════════════════════
+
+CONTEXTO:
+---------
+Una empresa digital maneja usuarios en diferentes plataformas:
+Spotify y Netflix.
+
+Se requiere implementar un sistema basado en CONJUNTOS utilizando
+LISTAS LIGADAS, donde no se permitan elementos repetidos.
+
+INSTRUCCIONES:
+--------------
+1. Implementar usando LISTAS LIGADAS (Nodo)
+2. NO usar listas de Python []
+3. Usar RECURSIVIDAD donde se indique
+4. Tiempo: 90 minutos
+
+═══════════════════════════════════════════════════════════════════════════════
+PUNTO 1 (1.0): DISEÑO DE ESTRUCTURAS
+═══════════════════════════════════════════════════════════════════════════════
+"""
+
+# Clase Nodo
+class Nodo:
+    def __init__(self, dato):
+        self.dato = dato      # id del usuario
+        self.siguiente = None
+
+
+# Clase Conjunto (Lista Ligada)
+class Conjunto:
+    def __init__(self):
+        self.cabeza = None
+
+
+"""
+═══════════════════════════════════════════════════════════════════════════════
+PUNTO 2 (1.0): AGREGAR - RECURSIVO
+- No permitir duplicados
+═══════════════════════════════════════════════════════════════════════════════
+"""
+
+    def agregar(self, dato):
+        # Llamado inicial
+        self.cabeza = self._agregar_rec(self.cabeza, dato)
+
+    def _agregar_rec(self, nodo, dato):
+        # CASO BASE: lista vacía → insertar
+        if nodo is None:
+            return Nodo(dato)
+
+        # Si ya existe → no insertar
+        if nodo.dato == dato:
+            return nodo
+
+        # Llamada recursiva
+        nodo.siguiente = self._agregar_rec(nodo.siguiente, dato)
+        return nodo
+
+
+"""
+═══════════════════════════════════════════════════════════════════════════════
+PUNTO 3 (1.0): UNIÓN - RECURSIVO
+═══════════════════════════════════════════════════════════════════════════════
+"""
+
+    def union(self, otro):
+        resultado = Conjunto()
+
+        # Copiar A
+        self._union_rec(self.cabeza, resultado)
+
+        # Copiar B
+        self._union_rec(otro.cabeza, resultado)
+
+        return resultado
+
+    def _union_rec(self, nodo, resultado):
+        if nodo is None:
+            return
+
+        resultado.agregar(nodo.dato)
+        self._union_rec(nodo.siguiente, resultado)
+
+
+"""
+═══════════════════════════════════════════════════════════════════════════════
+PUNTO 4 (1.0): INTERSECCIÓN - RECURSIVO
+═══════════════════════════════════════════════════════════════════════════════
+"""
+
+    def interseccion(self, otro):
+        resultado = Conjunto()
+        self._interseccion_rec(self.cabeza, otro, resultado)
+        return resultado
+
+    def _interseccion_rec(self, nodo, otro, resultado):
+        if nodo is None:
+            return
+
+        if otro.contiene(nodo.dato):
+            resultado.agregar(nodo.dato)
+
+        self._interseccion_rec(nodo.siguiente, otro, resultado)
+
+
+"""
+═══════════════════════════════════════════════════════════════════════════════
+PUNTO 5 (1.0): SUBCONJUNTO - RECURSIVO
+═══════════════════════════════════════════════════════════════════════════════
+"""
+
+    def es_subconjunto(self, otro):
+        return self._subconjunto_rec(self.cabeza, otro)
+
+    def _subconjunto_rec(self, nodo, otro):
+        # Si ya no hay elementos → sí es subconjunto
+        if nodo is None:
+            return True
+
+        # Si un elemento no está → no es subconjunto
+        if not otro.contiene(nodo.dato):
+            return False
+
+        return self._subconjunto_rec(nodo.siguiente, otro)
+
+
+"""
+═══════════════════════════════════════════════════════════════════════════════
+FUNCIONES AUXILIARES (NO RECURSIVAS)
+═══════════════════════════════════════════════════════════════════════════════
+"""
+
+    def contiene(self, dato):
+        actual = self.cabeza
+        while actual:
+            if actual.dato == dato:
+                return True
+            actual = actual.siguiente
+        return False
+
+    def mostrar(self):
+        actual = self.cabeza
+        while actual:
+            print(actual.dato, end=" ")
+            actual = actual.siguiente
+        print()
+
+
+"""
+═══════════════════════════════════════════════════════════════════════════════
+CÓDIGO DE PRUEBA
+═══════════════════════════════════════════════════════════════════════════════
+"""
+
+if __name__ == "__main__":
+    
+    spotify = Conjunto()
+    netflix = Conjunto()
+
+    spotify.agregar(1)
+    spotify.agregar(2)
+    spotify.agregar(3)
+
+    netflix.agregar(2)
+    netflix.agregar(3)
+    netflix.agregar(4)
+
+    print("Spotify:")
+    spotify.mostrar()
+
+    print("Netflix:")
+    netflix.mostrar()
+
+    print("Union:")
+    spotify.union(netflix).mostrar()
+
+    print("Interseccion:")
+    spotify.interseccion(netflix).mostrar()
+
+    print("¿Subconjunto?")
+    print(spotify.es_subconjunto(netflix))
